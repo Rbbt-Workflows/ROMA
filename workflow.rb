@@ -89,7 +89,7 @@ data = as.data.frame(t(matrix))
   end
 
   def self.run(*args)
-    run_R(*args)
+    run_java(*args)
   end
 
   helper :file_path do |content, input|
@@ -106,6 +106,7 @@ data = as.data.frame(t(matrix))
     stream = StringIO.new
     stream << tsv.all_fields * "\t" << "\n"
     TSV.traverse tsv, :into => stream do |k,vs|
+      next if k.nil? or k.empty?
       k + "\t" << vs * "\t" << "\n"
     end
     stream.rewind
