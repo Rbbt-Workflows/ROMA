@@ -19,7 +19,7 @@ module ROMA
     options["-outputFolder"] = output_dir
 
     cp_str = [Rbbt.jar["VDAOEngine.jar"].find, Rbbt.jar["ROMA.jar"].find] * ":"
-    cmd = "java -cp #{cp_str} fr.curie.ROMA.ModuleActivityAnalysis"
+    cmd = "java -Xmx4096m -cp #{cp_str} fr.curie.ROMA.ModuleActivityAnalysis"
 
     CMD.cmd(cmd, options.merge(:log => true))
   end
@@ -54,8 +54,8 @@ module ROMA
 
     TmpFile.with_file(modules.to_json, false) do |module_json|
       script = <<-EOF
-library(rRoma)
-library(jsonlite)
+rbbt.require('rRoma')
+rbbt.require('jsonlite')
 
 data = rbbt.tsv('#{data_file}', comment.char="")
 modules = fromJSON('#{module_json}')
