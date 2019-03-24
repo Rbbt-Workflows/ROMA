@@ -54,7 +54,7 @@ module ROMA
 
     TmpFile.with_file(modules.to_json, false) do |module_json|
       script = <<-EOF
-rbbt.require('rRoma')
+rbbt.require('Albluca/rRoma')
 rbbt.require('jsonlite')
 
 data = rbbt.tsv('#{data_file}', comment.char="")
